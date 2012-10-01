@@ -375,11 +375,11 @@ void SecondsTick_Handler()
     else
       printf("powered %i\n", rram_reg[0]);
   }
-  printf("PWS 0x%x PS 0x%x RS 0x%x - %i\n",
-         pmu_wake_status,
-         pmu_status,
-         reset_status,
-         wake_reason  );
+  // printf("PWS 0x%x PS 0x%x RS 0x%x - %i\n",
+  //        pmu_wake_status,
+  //        pmu_status,
+  //        reset_status,
+  //        wake_reason  );
 }
 
 // SysTick interrupt handler

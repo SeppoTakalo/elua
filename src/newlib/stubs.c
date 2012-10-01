@@ -344,24 +344,63 @@ struct mallinfo mallinfo()
 #define CNAME( func ) s##func
 #endif
 
+#if defined( MALLOC_DEBUG_DUMP )
+char printfbuf[128];
+extern u8 platform_initted;
+#endif
+
 void* _malloc_r( struct _reent* r, size_t size )
 {
+#if defined( MALLOC_DEBUG_DUMP )
+  void * alloctmp;
+  alloctmp = CNAME( malloc )( size );
+  siprintf(printfbuf,"MALL-MA: %p, %d",alloctmp, size);
+  if( platform_initted )
+    puts(printfbuf);
+  return alloctmp;
+#else
   return CNAME( malloc )( size );
+#endif
 }
 
 void* _calloc_r( struct _reent* r, size_t nelem, size_t elem_size )
 {
+#if defined( MALLOC_DEBUG_DUMP )
+  void * alloctmp;
+  alloctmp = CNAME( calloc )( nelem, elem_size );
+  siprintf(printfbuf,"MALL-CA: %p, %d, %d",alloctmp, nelem, elem_size);
+  if( platform_initted )
+    puts(printfbuf);
+  return alloctmp;
+#else
   return CNAME( calloc )( nelem, elem_size );
+#endif
 }
 
 void _free_r( struct _reent* r, void* ptr )
 {
+#if defined( MALLOC_DEBUG_DUMP )
   CNAME( free )( ptr );
+  siprintf(printfbuf,"MALL-FR: %p",ptr);
+  if( platform_initted )
+    puts(printfbuf);
+#else
+  CNAME( free )( ptr );
+#endif
 }
 
 void* _realloc_r( struct _reent* r, void* ptr, size_t size )
 {
+#if defined( MALLOC_DEBUG_DUMP )
+  void * alloctmp;
+  alloctmp = CNAME( realloc )( ptr, size );
+  siprintf(printfbuf,"MALL-RE: %p, %p, %d", ptr, alloctmp, size);
+  if( platform_initted )
+    puts(printfbuf);
+  return alloctmp;
+#else
   return CNAME( realloc )( ptr, size );
+#endif
 }
 
 #endif // #ifdef USE_MULTIPLE_ALLOCATOR

@@ -75,6 +75,10 @@ void boot_rpc( void )
 // ****************************************************************************
 //  Program entry point
 
+#if defined( MALLOC_DEBUG_DUMP )
+u8 platform_initted = 0;
+#endif
+
 int main( void )
 {
   int i;
@@ -101,6 +105,10 @@ int main( void )
 
   // Register the remote filesystem
   remotefs_init();
+
+#if defined( MALLOC_DEBUG_DUMP )
+  platform_initted = 1;
+#endif
 
   // Search for autorun files in the defined order and execute the 1st if found
   for( i = 0; i < sizeof( boot_order ) / sizeof( *boot_order ); i++ )

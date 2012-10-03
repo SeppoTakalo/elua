@@ -26,7 +26,7 @@
 
 #define PLATFORM_HAS_SYSTIMER
 
-#define MALLOC_DEBUG_DUMP
+//#define MALLOC_DEBUG_DUMP
 
 // *****************************************************************************
 // UART/Timer IDs configuration data (used in main.c)

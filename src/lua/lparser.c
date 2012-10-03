@@ -598,7 +598,7 @@ static void body (LexState *ls, expdesc *e, int needself, int line) {
   check_match(ls, TK_END, TK_FUNCTION, line);
   close_func(ls);
   pushclosure(ls, pnew_fs, e);
-  luaM_free(pnew_fs);
+  luaM_free(ls->L,pnew_fs);
 }
 
 
@@ -895,7 +895,7 @@ static void block (LexState *ls) {
   chunk(ls);
   lua_assert(pbl->breaklist == NO_JUMP);
   leaveblock(fs);
-  luaM_free(pbl);
+  luaM_free(ls->L,pbl);
 }
 
 

@@ -76,7 +76,7 @@ void boot_rpc( void )
 //  Program entry point
 
 #if defined( MALLOC_DEBUG_DUMP )
-u8 platform_initted = 0;
+u8 malloc_debug_dump_enable = 0;
 #endif
 
 int main( void )
@@ -107,7 +107,7 @@ int main( void )
   remotefs_init();
 
 #if defined( MALLOC_DEBUG_DUMP )
-  platform_initted = 1;
+  malloc_debug_dump_enable = 1;
 #endif
 
   // Search for autorun files in the defined order and execute the 1st if found

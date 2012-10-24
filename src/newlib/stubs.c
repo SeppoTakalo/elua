@@ -346,7 +346,7 @@ struct mallinfo mallinfo()
 
 #if defined( MALLOC_DEBUG_DUMP )
 char printfbuf[128];
-extern u8 platform_initted;
+extern u8 malloc_debug_dump_enable;
 #endif
 
 void* _malloc_r( struct _reent* r, size_t size )
@@ -355,7 +355,7 @@ void* _malloc_r( struct _reent* r, size_t size )
   void * alloctmp;
   alloctmp = CNAME( malloc )( size );
   siprintf(printfbuf,"MALL-MA: %p, %d",alloctmp, size);
-  if( platform_initted )
+  if( malloc_debug_dump_enable )
     puts(printfbuf);
   return alloctmp;
 #else
@@ -369,7 +369,7 @@ void* _calloc_r( struct _reent* r, size_t nelem, size_t elem_size )
   void * alloctmp;
   alloctmp = CNAME( calloc )( nelem, elem_size );
   siprintf(printfbuf,"MALL-CA: %p, %d, %d",alloctmp, nelem, elem_size);
-  if( platform_initted )
+  if( malloc_debug_dump_enable )
     puts(printfbuf);
   return alloctmp;
 #else
@@ -382,7 +382,7 @@ void _free_r( struct _reent* r, void* ptr )
 #if defined( MALLOC_DEBUG_DUMP )
   CNAME( free )( ptr );
   siprintf(printfbuf,"MALL-FR: %p",ptr);
-  if( platform_initted )
+  if( malloc_debug_dump_enable )
     puts(printfbuf);
 #else
   CNAME( free )( ptr );
@@ -395,7 +395,7 @@ void* _realloc_r( struct _reent* r, void* ptr, size_t size )
   void * alloctmp;
   alloctmp = CNAME( realloc )( ptr, size );
   siprintf(printfbuf,"MALL-RE: %p, %p, %d", ptr, alloctmp, size);
-  if( platform_initted )
+  if( malloc_debug_dump_enable )
     puts(printfbuf);
   return alloctmp;
 #else

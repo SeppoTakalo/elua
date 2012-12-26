@@ -1,8 +1,8 @@
 #ifndef __TYPE_H__
 #define __TYPE_H__
 
-#include "stm32f4xx.h"
 #include "stm32f4xx_conf.h"
+#include "stm32f4xx.h"
 
 #ifndef NULL
 #define NULL    ((void *)0)
